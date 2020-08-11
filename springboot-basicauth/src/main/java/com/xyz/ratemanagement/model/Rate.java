@@ -9,7 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "rate")
@@ -25,18 +29,21 @@ public class Rate {
 	
 	@NotNull(message="Please provide Rate Effective")
 	@Column(name="RATE_EFFECTIVE_DATE")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private  Date rateEffectiveDate ;
 	
 	@NotNull(message="Please provide Rate Expiration")
 	@Column(name="RATE_EXPIRATION_DATE")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private  Date rateExpirationDate;
 	
 	@NotNull(message="Please provide amount")
 	@Column(name="AMOUNT")
+	@DecimalMax(value = "9999", inclusive = false)
 	private  Double amount;
 	
 	@Transient
-	private Long surchargeRate;
+	private String surchargeRate;
 	
 	public Rate() {
 			
@@ -93,11 +100,11 @@ public class Rate {
 		this.amount = amount;
 	}
 
-	public Long getSurchargeRate() {
+	public String getSurchargeRate() {
 		return surchargeRate;
 	}
 
-	public void setSurchargeRate(Long surchargeRate) {
+	public void setSurchargeRate(String surchargeRate) {
 		this.surchargeRate = surchargeRate;
 	}
 	

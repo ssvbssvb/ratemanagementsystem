@@ -26,7 +26,7 @@ public class RateManagementController {
 	private static final Logger logger = LogManager.getLogger(RateManagementController.class);
 
 	@Autowired
-	public RateManagentServiceImpl rateManagentService;
+	private RateManagentServiceImpl rateManagentService;
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value=ApplicationConstants.SEARCH_RATE, method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
@@ -50,7 +50,7 @@ public class RateManagementController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value=ApplicationConstants.UPDATE_RATE, method=RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> updateRate(@PathVariable("rateId") Long rateId, @RequestBody Rate rates) {
+	public ResponseEntity<?> updateRate(@Valid @RequestBody Rate rates,@PathVariable("rateId") Long rateId) {
 
 		logger.info("Start:updateRate " + rateId);
 		Rate rateSearch = null;
